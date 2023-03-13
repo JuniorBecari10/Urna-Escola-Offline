@@ -1,6 +1,7 @@
 const numberInp = getId("number-inp");
 const form = getId("form");
 const votar = getId("votar");
+const sfx = getId("sfx");
 
 var candidates = {
   "43": {
@@ -26,13 +27,19 @@ numberInp.addEventListener("keydown", (e) => {
 votar.addEventListener("click", () => { vote(); });
 
 function vote() {
+  sfx.play();
+  
+  if (numberInp.value.length != 2) {
+    return;
+  }
+  
   let number = numberInp.value;
   numberInp.value = "";
   
   let cand = candidates[number];
   
   if (cand === undefined) {
-    console.log("Invalid. Typed: " + number);
+    console.log("Invalid vote. Typed number: " + number);
     return;
   }
   
@@ -41,7 +48,7 @@ function vote() {
   console.log(cand);
   console.log(candidates);
   
-  localStorage.setItem("candidates", JSON.serialize(candidates));
+  localStorage.setItem("candidates", JSON.stringify(candidates));
 }
 
 function print() {
