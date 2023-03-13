@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;500&family=Roboto+Slab&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  background-color: #fff;
+  overflow: hidden;
+}
+
+header {
+  width: 100%;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-bottom: 1px solid #000;
+
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 25%);
+}
+
+header h1 {
+  font-family: "Comfortaa", sans-serif;
+  font-weight: lighter;
+  font-size: 16pt;
+}
+
+main {
+  width: 100%;
+  height: calc(100vh - 50px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#wrapper {
+  width: 60%;
+  height: 80vh;
+  background-color: #fff;
+
+  border-radius: 60px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 25%);
+}
+
+#wrapper * {
+  margin-left: 50%;
+  transform: translateX(-50%);
+
+  display: block;
+}
+
+#number-inp {
+  background-color: transparent;
+  border: none;
+  outline: none;
+
+  text-align: center;
+  padding-bottom: 5px;
+
+  font-family: "Roboto Slab", sans-serif;
+  font-size: 52pt;
+
+  width: 128pt;
+
+  border-bottom: 5px solid #000;
+
+  margin-top: 80px;
+}
+
+#votar {
+  margin-top: 30px;
+
+  width: 150pt;
+  height: 50px;
+
+  background-color: #2570E0;
+
+  border: none;
+  outline: none;
+
+  border-radius: 30px;
+  
+  color: #fff;
+  font-family: "Comfortaa", sans-serif;
+
+  box-shadow: 0 0 15px rgba(0, 0, 0, 25%);
+
+  font-size: 14pt;
+  transition: background-color 0.3s;
+}
+
+#votar:hover {
+  background-color: #3a7fe7;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
