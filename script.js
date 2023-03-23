@@ -6,7 +6,7 @@ const sfx = getId("sfx");
 const votePreview = getId("vote-preview");
 const candPreview = getId("cand-preview");
 
-var candidates = {
+var candidatesDefault = {
   "10": {
     name: "UPME",
     votes: 0,
@@ -17,7 +17,16 @@ var candidates = {
   }
 }
 
-var sorted = [];
+var candidates = {
+  "10": {
+    name: "UPME",
+    votes: 0,
+  },
+  "14": {
+    name: "Liga do Estudante",
+    votes: 0,
+  }
+}
 
 if (localStorage.getItem("candidates") !== null) {
   candidates = JSON.parse(localStorage.getItem("candidates"));
@@ -66,13 +75,11 @@ function vote() {
   let cand = candidates[number];
   
   if (cand === undefined) {
-    console.log("Invalid vote. Typed number: " + number);
+    console.log("Voto inválido. Número digitado: " + number);
     return;
   }
   
   cand.votes++;
-  
-  sorted = sortCands(candidates);
 
   console.log(cand);
   console.log(candidates);
@@ -85,14 +92,17 @@ function print() {
 }
 
 function winner() {
+  let sorted = sortCands(candidates);
+
   if (sorted.length == 0) {
     alert("Ainda não houve votos!");
   }
 
-  alert("O candidato vencedor é " + sorted[0].name + ", com " + sorted[0].votes + " votos.");
+  alert("O candidato vencedor é " + sorted[0][1].name + ", com " + sorted[0][1].votes + " votos.");
 }
 
 function clear() {
+  candidates = candidatesDefault;
   localStorage.clear();
 }
 
