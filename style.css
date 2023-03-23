@@ -4,7 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: sans-serif;
+  font-family: "Comfortaa", sans-serif;
 }
 
 body {
@@ -26,7 +26,6 @@ header {
 }
 
 header h1 {
-  font-family: "Comfortaa", sans-serif;
   font-weight: lighter;
   font-size: 16pt;
 }
@@ -104,4 +103,25 @@ input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+#vote-preview {
+  width: 90%;
+  margin-left: 50%;
+  transform: translateX(-50%);
+
+  text-align: center;
+
+  margin-top: 50px;
+
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+#vote-preview span {
+  font-size: 14pt;
+}
+
+#vote-preview h2 {
+  font-size: 20pt;
 }
