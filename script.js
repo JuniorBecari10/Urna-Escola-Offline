@@ -32,12 +32,28 @@ if (localStorage.getItem("candidates") !== null) {
   candidates = JSON.parse(localStorage.getItem("candidates"));
 }
 
+document.addEventListener("keydown", (e) => {
+  if (e.key === "F2") {
+    print();
+  }
+
+  if (e.key === "F3") {
+    if (confirm("Deseja mesmo apagar os votos?")) {
+      clear();
+    }
+  }
+
+  if (e.key === "F4") {
+    winner();
+  }
+});
+
 numberInp.addEventListener("keydown", (e) => {
   if ((numberInp.value.length + 1 > 2 || isNaN(e.key)) && e.key != "Backspace") {
     e.preventDefault();
   }
 
-  if (e.key == "Enter") {
+  if (e.key === "Enter") {
     votar.click();
   }
 });
@@ -63,11 +79,11 @@ numberInp.addEventListener("keyup", () => {
 votar.addEventListener("click", () => { vote(); });
 
 function vote() {
-  sfx.play();
-  
   if (numberInp.value.length != 2) {
     return;
   }
+
+  sfx.play();
   
   let number = numberInp.value;
   numberInp.value = "";
@@ -82,7 +98,6 @@ function vote() {
   cand.votes++;
 
   console.log(cand);
-  console.log(candidates);
   
   localStorage.setItem("candidates", JSON.stringify(candidates));
 }
@@ -98,7 +113,12 @@ function winner() {
     alert("Ainda não houve votos!");
   }
 
-  alert("O candidato vencedor é " + sorted[0][1].name + ", com " + sorted[0][1].votes + " votos.");
+  if (sorted[0][1].votes > sorted[1][1].votes) {
+    alert("O candidato vencedor é " + sorted[0][1].name + ", com " + sorted[0][1].votes + " voto(s).");
+  }
+  else {
+    alert("Houve um empate entre os candidatos, ambos com " + sorted[0][1].votes + " voto(s).");
+  }
 }
 
 function clear() {
