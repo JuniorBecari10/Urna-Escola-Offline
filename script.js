@@ -1,151 +1,86 @@
-const numberInp = getId("number-inp");
-const form = getId("form");
-const votar = getId("votar");
-const sfx = getId("sfx");
+const qs = id => document.querySelector(id);
+const qs_all = id => document.querySelectorAll(id);
 
-const votePreview = getId("vote-preview");
-const candPreview = getId("cand-preview");
+const inputs = qs_all("input.input");
+const button = qs("#votar");
 
-var candidatesDefault = {
-  "10": {
-    name: "UPME",
-    votes: 0,
-  },
-  "14": {
-    name: "Liga do Estudante",
-    votes: 0,
-  }
-}
+const anchors = qs_all("a");
+const card = qs("#card");
 
-var candidates = {
-  "10": {
-    name: "UPME",
-    votes: 0,
-  },
-  "14": {
-    name: "Liga do Estudante",
-    votes: 0,
-  }
-}
+const view_votes = qs("#view-votes");
+const view_winner = qs("#view-winner");
 
-if (localStorage.getItem("candidates") !== null) {
-  candidates = JSON.parse(localStorage.getItem("candidates"));
-}
+const sfx = qs("#sfx");
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "F2") {
-    print();
-  }
-
-  if (e.key === "F3") {
-    if (confirm("Deseja mesmo apagar os votos?")) {
-      clear();
-    }
-  }
-
-  if (e.key === "F4") {
-    winner();
-  }
-});
-
-numberInp.addEventListener("keydown", (e) => {
-  if ((numberInp.value.length + 1 > 2 || isNaN(e.key)) && e.key != "Backspace") {
+anchors.forEach(anchor => {
+  anchor.onclick = e => {
     e.preventDefault();
-  }
-
-  if (e.key === "Enter") {
-    votar.click();
-  }
+  };
 });
 
-numberInp.addEventListener("keyup", () => {
-  if (numberInp.value.length == 2) {
-    votePreview.style.opacity = "100%";
+inputs.forEach(input => {
+  let lastInputStatus = 0;
 
-    let cand = candidates[numberInp.value];
-    
-    if (cand === undefined) {
-      candPreview.innerHTML = "Voto Nulo";
+  input.onkeypress = e => isNumberKey(e);
+
+  input.onkeyup = e => {
+    if (e.key === "Enter") {
+      submit();
       return;
     }
 
-    candPreview.innerHTML = cand.name;
-  }
-  else {
-    votePreview.style.opacity = "0";
+    const current = e.target;
+    const next = input.nextElementSibling;
+    const prev = input.previousElementSibling;
+
+    if (prev && e.keyCode === 8) {
+      if (lastInputStatus === 1) {
+        prev.value = "";
+        prev.focus();
+      }
+
+      button.setAttribute("disabled", true);
+      card.classList.add("hidden");
+      lastInputStatus = 1;
+    }
+    else {
+      const regex = /^[0-9]+$/;
+      if (!regex.test(current.value)) {
+        current.value = current.value.replace(/\D/g, "");
+      }
+      else if (current.value) {
+        if (next) {
+          next.focus();
+        }
+        else {
+          button.removeAttribute("disabled");
+          card.classList.remove("hidden");
+          lastInputStatus = 0;
+        }
+      }
+    }
   }
 });
 
-votar.addEventListener("click", () => { vote(); });
+button.onclick = e => {
+  e.preventDefault();
+  submit();
+};
 
-function vote() {
-  if (numberInp.value.length != 2) {
-    return;
-  }
-
+function submit() {
   sfx.play();
-  
-  let number = numberInp.value;
-  numberInp.value = "";
-  
-  let cand = candidates[number];
-  
-  if (cand === undefined) {
-    console.log("Voto inválido. Número digitado: " + number);
-    return;
-  }
-  
-  cand.votes++;
-
-  console.log(cand);
-  
-  localStorage.setItem("candidates", JSON.stringify(candidates));
+  reset();
 }
 
-function print() {
-  console.log(candidates);
+function reset() {
+  inputs.forEach(input => input.value = "");
+  inputs[0].focus();
+
+  button.setAttribute("disabled", true);
+  card.classList.add("hidden");
 }
 
-function winner() {
-  let sorted = sortCands(candidates);
-
-  if (sorted.length == 0) {
-    alert("Ainda não houve votos!");
-  }
-
-  if (sorted[0][1].votes > sorted[1][1].votes) {
-    alert("O candidato vencedor é " + sorted[0][1].name + ", com " + sorted[0][1].votes + " voto(s).");
-  }
-  else {
-    alert("Houve um empate entre os candidatos, ambos com " + sorted[0][1].votes + " voto(s).");
-  }
-}
-
-function clear() {
-  candidates = candidatesDefault;
-  localStorage.clear();
-}
-
-function getId(id) {
-  return document.getElementById(id);
-}
-
-function sortCands(cands) {
-  const arr = Object.entries(candidates);
-  
-  for (let i = 0; i < arr.length - 1; i++) {
-    let a = arr[i];
-    let b = arr[i + 1];
-
-    if (a[1].votes < b[1].votes) {
-      arr.swapItems(i, i + 1);
-    }
-  }
-
-  return arr;
-}
-
-Array.prototype.swapItems = function(a, b) {
-  this[a] = this.splice(b, 1, this[a])[0];
-  return this;
+function isNumberKey(evt) {
+  let charCode = (evt.which) ? evt.which : evt.keyCode
+  return !(charCode > 31 && (charCode < 48 || charCode > 57));
 }

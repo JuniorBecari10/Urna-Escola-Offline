@@ -1,127 +1,188 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;500&family=Roboto+Slab&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: "Comfortaa", sans-serif;
+  font-family: "Poppins", sans-serif;
+
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+
+  user-select: none;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+
+  padding: 8px;
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+
+a:hover {
+  background: #dedede;
 }
 
 body {
-  background-color: #fff;
-  overflow: hidden;
-}
-
-header {
-  width: 100%;
-  height: 50px;
-
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
-  border-bottom: 1px solid #000;
-
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 25%);
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+	height: 100vh;
 }
 
-header h1 {
-  font-weight: lighter;
-  font-size: 16pt;
+#card {
+  position: absolute;
+
+  top: 0;
+  left: 50%;
+
+  transform: translateX(-50%);
+  text-align: center;
+
+  width: 30%;
+  padding: 10px;
+
+  border-radius: 0 0 15px 15px;
+
+  background: #fff;
+  transition: top 0.3s;
+}
+
+#card.hidden {
+  top: -95px;
 }
 
 main {
-  width: 100%;
-  height: calc(100vh - 50px);
+  width: 60%;
+  height: 60vh;
+
+  background: #fff;
+  border-radius: 30px;
 
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-#wrapper {
-  width: 60%;
-  height: 80vh;
-  background-color: #fff;
-
-  border-radius: 60px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 25%);
+main > * {
+  width: 100%;
 }
 
-#wrapper * {
-  margin-left: 50%;
-  transform: translateX(-50%);
-
-  display: block;
+a#settings {
+  width: 25px;
+  height: 25px;
 }
 
-#number-inp {
-  background-color: transparent;
-  border: none;
+img.settings {
+  width: 100%;
+}
+
+.header {
+  height: 70px;
+}
+
+.buttons {
+  width: 95%;
+  height: 70px;
+
+  margin: 30px;
+  border-radius: 20px;
+
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  background: #efefef;
+}
+
+.content-wrapper {
+  height: auto;
+  padding: 30px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+input {
+  display: inline-block;
+  font-size: 50pt;
+  width: 40pt;
+
+  margin: 5px;
+  padding: 20px;
+  text-align: center;
+
+  border: 1px solid #000;
   outline: none;
 
-  text-align: center;
-  padding-bottom: 5px;
-
-  font-family: "Roboto Slab", sans-serif;
-  font-size: 52pt;
-
-  width: 128pt;
-
-  border-bottom: 5px solid #000;
-
-  margin-top: 80px;
+  border-radius: 10px;
 }
 
-#votar {
-  margin-top: 30px;
+button#votar {
+  margin-top: 20px;
 
-  width: 150pt;
+  width: 210px;
   height: 50px;
+  font-size: 14pt;
 
-  background-color: #2570E0;
+  background: #fff;
 
-  border: none;
+  border: 1px solid #000;
   outline: none;
 
-  border-radius: 30px;
-  
+  cursor: pointer;
+
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+
+button#votar[disabled] {
+  opacity: .6;
+  cursor: default;
+}
+
+button#votar:hover:not([disabled]) {
+  background: #2671e0;
   color: #fff;
-  font-family: "Comfortaa", sans-serif;
-
-  box-shadow: 0 0 15px rgba(0, 0, 0, 25%);
-
-  font-size: 14pt;
-  transition: background-color 0.3s;
+  border: 1px solid #fff;
 }
 
-#votar:hover {
-  background-color: #3a7fe7;
+div.pulse {
+  animation: pulse 1s ease;
 }
 
-input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
 
-#vote-preview {
-  width: 90%;
-  margin-left: 50%;
-  transform: translateX(-50%);
+@keyframes pulse {
+  0%, 100% {
+    body {
+      opacity: 0;
+    }
+  }
 
-  text-align: center;
-
-  margin-top: 50px;
-
-  opacity: 0;
-  transition: opacity 0.3s;
+  50% {
+    body {
+      opacity: .5;
+    }
+  }
 }
 
-#vote-preview span {
-  font-size: 14pt;
-}
-
-#vote-preview h2 {
-  font-size: 20pt;
-}

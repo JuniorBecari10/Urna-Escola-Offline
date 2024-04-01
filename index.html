@@ -2,37 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Urna Eletrônica</title>
 
   <link rel="stylesheet" href="style.css">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;500&family=Roboto+Slab&display=swap" rel="stylesheet">
-
-  <title>Urna Eletrônica</title>
 </head>
 <body>
-  <header>
-    <h1>Urna Eletrônica</h1>
-  </header>
-  <main>
-    <div id="wrapper">
-      <input type="text" id="number-inp" name="number" autofocus>
-      <input type="button" id="votar" value="Votar">
+  <div class="hidden" id="card">
+    <p>Você votará em</p>
+    <h1>Nulo</h1>
+  </div>
 
-      <div id="vote-preview">
-        <span>Você votou em</span>
-        <h2 id="cand-preview">Candidate</h2>
+  <main>
+    <div class="header"></div>
+    <div class="content-wrapper">
+      <div class="input">
+        <input class="input" type="text" maxlength="1" autofocus>
+        <input class="input" type="text" maxlength="1">
       </div>
+      <button class="ripple" id="votar" disabled>Votar</button>
+    </div>
+    <div class="buttons">
+      <a href="" class="ripple" id="view-votes">Visualizar votos</a>
+      <a href="" class="ripple" id="view-winner">Visualizar vencedor</a>
     </div>
   </main>
-  
+
   <audio id="sfx">
     <source src="sfx.mp3" type="audio/mpeg">
   </audio>
-  
+
+  <script src="ripple.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
