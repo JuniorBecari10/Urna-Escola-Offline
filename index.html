@@ -9,27 +9,42 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js" integrity="sha512-lOrm9FgT1LKOJRUXF3tp6QaMorJftUjowOWiDcG5GFZ/q7ukof19V0HKx/GWzXCdt9zYju3/KhBNdCLzK8b90Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css" integrity="sha512-NXUhxhkDgZYOMjaIgd89zF2w51Mub53Ru3zCNp5LTlEzMbNNAjTjDbpURYGS5Mop2cU4b7re1nOIucsVlrx9fA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 <body>
   <div class="hidden" id="card">
     <p>Você votará em</p>
-    <h1 id="candidate-name">Nulo</h1>
+    <h1 id="candidate-name">Nome</h1>
   </div>
 
   <main>
-    <div class="header"></div>
-    <div class="content-wrapper">
+    <div class="buttons" x-data="{show: false}">
+      <a href="" id="configs" class="ripple" @click="show = !show">
+        <img src="settings.png">
+      </a>
+      <div class="password-wrapper" x-show="show" x-transition.scale.origin.left>
+        <input type="password" name="password" id="password" placeholder="Digite a senha" @keyup.enter="show = false; submitPassword(qs('#password').value); qs('#password').value = ''">
+        <a href="" id="send-pass" class="ripple" @click="show = false; submitPassword(qs('#password').value); qs('#password').value = ''">Enviar</a>
+      </div>
+    </div>
+    <div class="main-content">
       <div class="input">
         <input class="input" type="text" maxlength="1" autofocus>
         <input class="input" type="text" maxlength="1">
       </div>
       <button class="ripple" id="votar" disabled>Votar</button>
     </div>
-    <div class="buttons">
-      <a href="" class="ripple" id="view-votes">Visualizar votos</a>
-      <a href="" class="ripple" id="view-winner">Visualizar vencedor</a>
-    </div>
   </main>
+
+  <div id="info-card" class="hidden">
+    <a href="" class="ripple" id="info-close">
+      <img src="close.png">
+    </a>
+
+    <h1>Detalhes</h1>
+
+  </div>
 
   <audio id="sfx">
     <source src="sfx.mp3" type="audio/mpeg">

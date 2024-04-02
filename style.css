@@ -34,6 +34,8 @@ body {
 	background-size: 400% 400%;
 	animation: gradient 15s ease infinite;
 	height: 100vh;
+
+  overflow: hidden;
 }
 
 #card {
@@ -45,7 +47,7 @@ body {
   transform: translateX(-50%);
   text-align: center;
 
-  width: 30%;
+  width: 40%;
   padding: 10px;
 
   border-radius: 0 0 15px 15px;
@@ -58,6 +60,30 @@ body {
   top: -95px;
 }
 
+#info-card {
+  position: absolute;
+
+  top: 5vh;
+  left: 50%;
+
+  transform: translateX(-50%);
+  text-align: center;
+
+  width: 80%;
+  height: 100vh;
+  padding: 10px;
+
+  border-radius: 15px 15px 0 0;
+
+  background: #fff;
+  transition: top 0.3s;
+}
+
+#info-card.hidden {
+  top: 100vh;
+  left: 50%;
+}
+
 main {
   width: 60%;
   height: 60vh;
@@ -66,7 +92,7 @@ main {
   border-radius: 30px;
 
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   flex-direction: column;
 }
@@ -75,38 +101,65 @@ main > * {
   width: 100%;
 }
 
-a#settings {
-  width: 25px;
-  height: 25px;
+.buttons {
+  width: 95%;
+  height: 50px;
+  margin: 20px;
+
+  display: flex;
+  justify-content: start;
+  align-items: center;
 }
 
-img.settings {
+.buttons a,
+#info-card a {
+  width: 25px;
+  height: 25px;
+
+  margin: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttons img {
   width: 100%;
 }
 
-.header {
-  height: 70px;
+.buttons input {
+  padding: 5px;
+  border-radius: 5px;
+
+  border: 1px solid #000;
+  outline: none;
 }
 
-.buttons {
-  width: 95%;
-  height: 70px;
-
-  margin: 30px;
-  border-radius: 20px;
-
+.password-wrapper {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: start;
   align-items: center;
 
-  background: #efefef;
+  border-radius: 5px;
+  border: 1px solid #000;
+
+  padding: 5px;
+  padding-left: 10px;
 }
 
-.buttons a {
-  margin: 10px;
+.password-wrapper a {
+  margin-left: 10px;
+  font-size: 10pt;
+
+  width: 50px;
+  height: 18px;
+
+  background: #2671e0;
+  color: #fff;
+  border: 1px solid #fff;
 }
 
-.content-wrapper {
+.main-content {
   height: auto;
   padding: 30px;
 
@@ -116,7 +169,7 @@ img.settings {
   flex-direction: column;
 }
 
-input {
+.main-content input {
   display: inline-block;
   font-size: 50pt;
   width: 40pt;

@@ -11,26 +11,32 @@ const view_votes = qs("#view-votes");
 const view_winner = qs("#view-winner");
 
 const candidateName = qs("#candidate-name");
+const infoCard = qs("#info-card");
+const infoClose = qs("#info-close");
+
 const sfx = qs("#sfx");
 
-const digits = [0, 0];
+const digits = ["", ""];
+let canSubmit = false;
 
 const candidatesDefault = {
-  "10": {
-    name: "UPME",
+  "13": {
+    name: "Lutando Pela Melhoria Escolar",
     votes: 0,
   },
   "14": {
-    name: "Liga do Estudante",
+    name: "Solução Jovem",
+    votes: 0,
+  },
+  "15": {
+    name: "no_name!",
     votes: 0,
   }
 };
 
-new Noty({
-  text: "hello",
-  progressBar: true,
-  timeout: 5000,
-}).show();
+// guarantee to have a copy
+const candidates = { ...candidatesDefault };
+let nullVotes = 0;
 
 anchors.forEach(anchor => {
   anchor.onclick = e => {
@@ -41,6 +47,7 @@ anchors.forEach(anchor => {
 let i = 0;
 inputs.forEach(input => {
   let lastInputStatus = 0;
+  input.i = i;
 
   input.onkeypress = e => isNumberKey(e);
 
@@ -49,6 +56,8 @@ inputs.forEach(input => {
       submit();
       return;
     }
+
+    digits[input.i] = input.value;
 
     const current = e.target;
     const next = input.nextElementSibling;
@@ -62,6 +71,8 @@ inputs.forEach(input => {
 
       button.setAttribute("disabled", true);
       card.classList.add("hidden");
+      canSubmit = false;
+
       lastInputStatus = 1;
     }
     else {
@@ -76,6 +87,9 @@ inputs.forEach(input => {
         else {
           button.removeAttribute("disabled");
           card.classList.remove("hidden");
+          canSubmit = true;
+          changeCandidateName(getTypedData());
+
           lastInputStatus = 0;
         }
       }
@@ -90,18 +104,63 @@ button.onclick = e => {
   submit();
 };
 
+infoClose.onclick = e => {
+  e.preventDefault();
+  infoCard.classList.add("hidden");
+}
+
+function getTypedData() {
+  let res = "";
+  
+  digits.forEach(digit => {
+    res += digit;
+  });
+
+  return res;
+}
+
+function changeCandidateName(number) {
+  if (candidates.hasOwnProperty(number)) {
+    const candidate = candidates[number];
+    candidateName.innerText = candidate.name;
+  }
+  else {
+    candidateName.innerText = "Nulo";
+  }
+}
+
 function submit() {
+  if (!canSubmit) return;
+
   sfx.play();
   reset();
 
-  let res = "";
-  console.log(digits);
-  digits.forEach(digit => {
-    console.log(digit);
-    res += digit;
-  });
-  //res = Number(res);
-  console.log(res);
+  const number = getTypedData();
+  
+  if (candidates.hasOwnProperty(number)) {
+    const candidate = candidates[number];
+    candidate.votes++;
+  }
+  else {
+    nullVotes++;
+  }
+}
+
+function submitPassword(password) {
+  const correctPass = "abelha123";
+
+  if (password !== correctPass) {
+    new Noty({
+      text: "Senha incorreta!",
+      progressBar: true,
+      timeout: 5000,
+      type: "error",
+    }).show();
+
+    return;
+  }
+
+  infoCard.classList.remove("hidden");
 }
 
 function reset() {
@@ -110,6 +169,8 @@ function reset() {
 
   button.setAttribute("disabled", true);
   card.classList.add("hidden");
+  canSubmit = false;
+  // should i set the candidateName to "Nulo"?
 }
 
 function isNumberKey(evt) {
