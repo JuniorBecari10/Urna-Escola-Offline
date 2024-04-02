@@ -102,6 +102,10 @@ img.settings {
   background: #efefef;
 }
 
+.buttons a {
+  margin: 10px;
+}
+
 .content-wrapper {
   height: auto;
   padding: 30px;
@@ -150,14 +154,15 @@ button#votar[disabled] {
   cursor: default;
 }
 
-button#votar:hover:not([disabled]) {
+button#votar:not([disabled]) {
   background: #2671e0;
   color: #fff;
   border: 1px solid #fff;
 }
 
-div.pulse {
-  animation: pulse 1s ease;
+div#noty_layout__topRight > div {
+  border-radius: 10px;
+  padding: 5px;
 }
 
 @keyframes gradient {
@@ -171,18 +176,3 @@ div.pulse {
 		background-position: 0% 50%;
 	}
 }
-
-@keyframes pulse {
-  0%, 100% {
-    body {
-      opacity: 0;
-    }
-  }
-
-  50% {
-    body {
-      opacity: .5;
-    }
-  }
-}
-

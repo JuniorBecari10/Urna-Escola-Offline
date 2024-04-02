@@ -10,7 +10,27 @@ const card = qs("#card");
 const view_votes = qs("#view-votes");
 const view_winner = qs("#view-winner");
 
+const candidateName = qs("#candidate-name");
 const sfx = qs("#sfx");
+
+const digits = [0, 0];
+
+const candidatesDefault = {
+  "10": {
+    name: "UPME",
+    votes: 0,
+  },
+  "14": {
+    name: "Liga do Estudante",
+    votes: 0,
+  }
+};
+
+new Noty({
+  text: "hello",
+  progressBar: true,
+  timeout: 5000,
+}).show();
 
 anchors.forEach(anchor => {
   anchor.onclick = e => {
@@ -18,6 +38,7 @@ anchors.forEach(anchor => {
   };
 });
 
+let i = 0;
 inputs.forEach(input => {
   let lastInputStatus = 0;
 
@@ -60,6 +81,8 @@ inputs.forEach(input => {
       }
     }
   }
+
+  i++;
 });
 
 button.onclick = e => {
@@ -70,6 +93,15 @@ button.onclick = e => {
 function submit() {
   sfx.play();
   reset();
+
+  let res = "";
+  console.log(digits);
+  digits.forEach(digit => {
+    console.log(digit);
+    res += digit;
+  });
+  //res = Number(res);
+  console.log(res);
 }
 
 function reset() {
