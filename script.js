@@ -104,6 +104,16 @@ inputs.forEach(input => {
   i++;
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  if (localStorage.getItem("candidates") !== null) {
+    candidates = JSON.parse(localStorage.getItem("candidates"));
+  }
+
+  if (localStorage.getItem("nullVotes") != null) {
+    nullVotes = Number(localStorage.getItem("nullVotes"));
+  }
+});
+
 button.onclick = e => {
   e.preventDefault();
   submit();
@@ -139,12 +149,18 @@ function changeCandidateName(number) {
   }
 }
 
+function updateStorage() {
+  localStorage.setItem("candidates", JSON.stringify(candidates));
+  localStorage.setItem("nullVotes", nullVotes);
+}
+
 function updateCounters() {
   counter13.innerText = candidates["13"].votes + " voto(s)";
   counter14.innerText = candidates["14"].votes + " voto(s)";
   counter15.innerText = candidates["15"].votes + " voto(s)";
 
   counterNull.innerText = nullVotes + " voto(s)";
+  updateStorage();
 }
 
 function showConfirm() {
@@ -191,6 +207,7 @@ function submit() {
   else {
     nullVotes++;
   }
+  updateStorage();
 }
 
 function submitPassword(password) {
