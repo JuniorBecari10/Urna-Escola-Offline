@@ -211,7 +211,7 @@ function submit() {
 }
 
 function submitPassword(password) {
-  const correctPass = "abelha123";
+  const correctPass = "e905720a";
 
   if (password !== correctPass) {
     new Noty({
