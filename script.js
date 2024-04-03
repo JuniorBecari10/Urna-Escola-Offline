@@ -14,6 +14,12 @@ const candidateName = qs("#candidate-name");
 const infoCard = qs("#info-card");
 const infoClose = qs("#info-close");
 
+const counter13 = qs("#counter-13");
+const counter14 = qs("#counter-14");
+const counter15 = qs("#counter-15");
+const counterNull = qs("#counter-null");
+
+const zerarBtn = qs("#zerar");
 const sfx = qs("#sfx");
 
 const digits = ["", ""];
@@ -34,8 +40,7 @@ const candidatesDefault = {
   }
 };
 
-// guarantee to have a copy
-const candidates = { ...candidatesDefault };
+let candidates = clone(candidatesDefault);
 let nullVotes = 0;
 
 anchors.forEach(anchor => {
@@ -109,6 +114,11 @@ infoClose.onclick = e => {
   infoCard.classList.add("hidden");
 }
 
+zerarBtn.onclick = e => {
+  e.preventDefault();
+  showConfirm();
+}
+
 function getTypedData() {
   let res = "";
   
@@ -127,6 +137,43 @@ function changeCandidateName(number) {
   else {
     candidateName.innerText = "Nulo";
   }
+}
+
+function updateCounters() {
+  counter13.innerText = candidates["13"].votes + " voto(s)";
+  counter14.innerText = candidates["14"].votes + " voto(s)";
+  counter15.innerText = candidates["15"].votes + " voto(s)";
+
+  counterNull.innerText = nullVotes + " voto(s)";
+}
+
+function showConfirm() {
+  var n = new Noty({
+    text: "Você deseja realmente zerar a contagem dos votos?",
+    buttons: [
+      Noty.button("Sim", "btn btn-success", () => {
+          zerar();
+          n.close();
+      }, {id: "button1", "data-status": "ok"}),
+  
+      Noty.button("Não", "btn btn-error", () => {
+          n.close();
+      })
+    ],
+    closeWith: "button",
+    killer: true,
+  });
+
+  n.show();
+}
+
+function zerar() {
+  Object.keys(candidates)
+    .forEach(k => candidates[k].votes = 0);
+  
+  nullVotes = 0;
+
+  updateCounters();
 }
 
 function submit() {
@@ -160,6 +207,7 @@ function submitPassword(password) {
     return;
   }
 
+  updateCounters();
   infoCard.classList.remove("hidden");
 }
 
@@ -173,7 +221,16 @@ function reset() {
   // should i set the candidateName to "Nulo"?
 }
 
-function isNumberKey(evt) {
-  let charCode = (evt.which) ? evt.which : evt.keyCode
+function isNumberKey(e) {
+  let charCode = (e.which) ? e.which : e.keyCode
   return !(charCode > 31 && (charCode < 48 || charCode > 57));
+}
+
+function clone(obj) {
+  if (null == obj || "object" != typeof obj) return obj;
+  var copy = obj.constructor();
+  for (var attr in obj) {
+      if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+  }
+  return copy;
 }
