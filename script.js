@@ -27,7 +27,7 @@ let canSubmit = false;
 
 const candidatesDefault = {
   "13": {
-    name: "Lutando Pela Melhoria Escolar",
+    name: "Lutando pela Melhoria Escolar",
     votes: 0,
   },
   "14": {
@@ -35,7 +35,7 @@ const candidatesDefault = {
     votes: 0,
   },
   "15": {
-    name: "no_name!",
+    name: "União pela Mudança",
     votes: 0,
   }
 };
