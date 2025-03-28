@@ -209,7 +209,7 @@ function submit() {
   updateStorage();
 }
 
-function submitPassword(password) {
+function submitPassword(password, settings) {
   const correctPass = "e905720a";
 
   if (password !== correctPass) {
@@ -223,8 +223,13 @@ function submitPassword(password) {
     return;
   }
 
-  updateCounters();
-  infoCard.classList.remove("hidden");
+  if (settings) {
+      updateCounters();
+      infoCard.classList.remove("hidden");
+  }
+    else {
+      localStorage.clear();
+    }
 }
 
 function reset() {

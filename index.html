@@ -20,13 +20,16 @@
   </div>
 
   <main>
-    <div class="buttons" x-data="{show: false}">
-      <a href="" id="configs" class="ripple" @click="show = !show">
+    <div class="buttons" x-data="{show: false, settings: true}">
+      <a href="" id="configs" class="ripple" @click="show = !show; settings = true">
         <img src="settings.png">
+      </a>
+      <a href="" id="configs" class="ripple" @click="show = !show; settings = false">
+        <img src="reload.png">
       </a>
       <div class="password-wrapper" x-show="show" x-transition.scale.origin.left>
         <input type="password" name="password" id="password" placeholder="Digite a senha" @keyup.enter="show = false; submitPassword(qs('#password').value); qs('#password').value = ''">
-        <a href="" id="send-pass" class="ripple" @click="show = false; submitPassword(qs('#password').value); qs('#password').value = ''">Enviar</a>
+        <a href="" id="send-pass" class="ripple" @click="show = false; submitPassword(qs('#password').value, settings); qs('#password').value = ''">Enviar</a>
       </div>
     </div>
     <div class="main-content">
