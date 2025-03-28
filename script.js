@@ -49,6 +49,10 @@ anchors.forEach(anchor => {
   };
 });
 
+window.addEventListener("keydown", e => {
+    if (e.code.toLowerCase() === "f9")
+        localStorage.clear();
+});
 let i = 0;
 inputs.forEach(input => {
   let lastInputStatus = 0;
@@ -209,7 +213,7 @@ function submit() {
   updateStorage();
 }
 
-function submitPassword(password, settings) {
+function submitPassword(password) {
   const correctPass = "e905720a";
 
   if (password !== correctPass) {
@@ -223,13 +227,8 @@ function submitPassword(password, settings) {
     return;
   }
 
-  if (settings) {
-      updateCounters();
-      infoCard.classList.remove("hidden");
-  }
-    else {
-      localStorage.clear();
-    }
+  updateCounters();
+  infoCard.classList.remove("hidden");
 }
 
 function reset() {
