@@ -49,10 +49,6 @@ anchors.forEach(anchor => {
   };
 });
 
-window.addEventListener("keydown", e => {
-    if (e.code.toLowerCase() === "f9")
-        localStorage.clear();
-});
 let i = 0;
 inputs.forEach(input => {
   let lastInputStatus = 0;
