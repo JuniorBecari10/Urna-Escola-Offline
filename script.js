@@ -26,16 +26,16 @@ const digits = ["", ""];
 let canSubmit = false;
 
 const candidatesDefault = {
-  "13": {
-    name: "Lutando pela Melhoria Escolar",
+  "09": {
+    name: "Lutando pela Melhoria da Escola",
     votes: 0,
   },
-  "14": {
-    name: "Solução Jovem",
+  "10": {
+    name: "Teremos Mais Responsabilidade",
     votes: 0,
   },
-  "15": {
-    name: "União pela Mudança",
+  "11": {
+    name: "Lebres de Cartola",
     votes: 0,
   }
 };
@@ -155,9 +155,9 @@ function updateStorage() {
 }
 
 function updateCounters() {
-  counter13.innerText = candidates["13"].votes + " voto(s)";
-  counter14.innerText = candidates["14"].votes + " voto(s)";
-  counter15.innerText = candidates["15"].votes + " voto(s)";
+  counter13.innerText = candidates["09"].votes + " voto(s)";
+  counter14.innerText = candidates["10"].votes + " voto(s)";
+  counter15.innerText = candidates["11"].votes + " voto(s)";
 
   counterNull.innerText = nullVotes + " voto(s)";
   updateStorage();
@@ -188,7 +188,6 @@ function zerar() {
     .forEach(k => candidates[k].votes = 0);
   
   nullVotes = 0;
-
   updateCounters();
 }
 
